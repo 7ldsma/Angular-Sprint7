@@ -2,10 +2,12 @@
 <div class="form-check pt-2">
     <input webCheckbox 
     type="checkbox"
+    [(ngModel)] = "homeService.budget.web"
+    name = "web"
     class="form-check-input"
-    value="500"
+    value="false"
     id="webCheck"
-    onclick=""
+    (change)="homeService.updatePrice()"
     />
     <label class="form-check-label" for="webCheck">
         Una página web (500€)
@@ -14,27 +16,31 @@
 <div class="form-check pt-2">
     <input consultoriaCheckbox 
     type="checkbox"
+    [(ngModel)] = "homeService.budget.consultoria"
+    name = "consultoria"
     class="form-check-input"
-    value="300"
-    id="webCheck"
-    onclick=""
+    value="false"
+    id="consultCheck"
+    (change)="homeService.updatePrice()"
     />
-    <label class="form-check-label" for="webCheck">
+    <label class="form-check-label" for="consultCheck">
         Una consultoría de SEO (300€)
     </label>
 </div>
 <div class="form-check pt-2">
     <input addsCheckbox 
     type="checkbox"
+    [(ngModel)] = "homeService.budget.adds"
+    name = "adds"
     class="form-check-input"
-    value="200"
-    id="webCheck"
-    onclick=""
+    value="false"
+    id="addsCheck"
+    (change)="homeService.updatePrice()"
     />
-    <label class="form-check-label" for="webCheck">
+    <label class="form-check-label" for="addsCheck">
         Una campaña de Google Adds (200€)
     </label>
 </div>
 <div class="total pt-2">
-    <p>El precio total es: </p>
+    <p>El precio total es: {{ homeService.budget.total }} €</p>
 </div>
