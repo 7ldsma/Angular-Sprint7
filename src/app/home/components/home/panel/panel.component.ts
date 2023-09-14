@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PanelService } from 'src/app/home/services/panel.service';
 
 @Component({
   selector: 'app-panel',
@@ -7,27 +8,9 @@ import { Component } from '@angular/core';
 })
 export class PanelComponent {
 
-  public pages: number = 1;
-  public languages: number = 1;
+  constructor ( public panelService : PanelService ){
 
-  increasePages (): void {
-    this.pages += 1;
   }
 
-  decreasePages (): void {
-    if (this.pages > 1) {
-      this.pages -= 1;
-    }
-  }
-
-  increaseLanguages (): void {
-    this.languages += 1;
-  }
-
-  decreaseLanguages (): void {
-    if (this.languages > 1) {
-      this.languages -= 1;
-    }
-  }
 
 }

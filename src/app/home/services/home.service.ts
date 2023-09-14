@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Budget } from '../interfaces/budget.component';
+import { PanelService } from './panel.service';
 
 @Injectable({providedIn: 'root'})
 export class HomeService {
     
+    constructor ( public panelService : PanelService ){
+
+    }
+
+
     public budget : Budget = {
         name: '',
         client: '',
@@ -13,12 +19,17 @@ export class HomeService {
         total: 0,
       };
     
-    
+
+
     updatePrice(){
 
         if(this.budget.web) {
             this.budget.total = 500;
-        } else {
+            if(this.panelService.pages > 1 || this.panelService.languages > 1){
+                this.budget.total += (this.panelService.pages * this.panelService.languages * 30)
+                console.log("hola")
+            }
+            } else {
             this.budget.total = 0;
         }
 
@@ -34,10 +45,8 @@ export class HomeService {
             this.budget.total += 0;        
         }
 
-        console.log(this.budget.total)
     }
-      
-      
-      
+
+
     
 }
