@@ -7,7 +7,6 @@
            <small *ngIf="pagesCtrl.hasError('required')">Debes ingresar un número de páginas</small> 
            <small *ngIf="pagesCtrl.hasError('maxLength')">Ingresa un número de dos cifras</small> 
            <small *ngIf="pagesCtrl.hasError('min')">Una web debe tener como mínimo una página</small> 
-
         </p>
         <button type="button" class="btn btn-primary" (click)="homeService.increasePages()">+</button>
         <i class="bi bi-info-circle-fill mx-2" style="font-size:24px;"></i>
