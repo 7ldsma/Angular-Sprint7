@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FormsModule } from '@angular/forms';
 import { PanelComponent } from './components/home/panel/panel.component';
 import { PanelService } from './services/panel.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -18,8 +19,9 @@ import { PanelService } from './services/panel.service';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  providers:[PanelService],
+  providers:[],
 })
 export class HomeModule { }

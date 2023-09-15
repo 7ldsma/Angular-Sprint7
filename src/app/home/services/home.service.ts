@@ -1,14 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Budget } from '../interfaces/budget.component';
 import { PanelService } from './panel.service';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Injectable({providedIn: 'root'})
 export class HomeService {
     
-    constructor ( public panelService : PanelService ){
 
+    public webBudget: FormGroup;
+    constructor( 
+        private formBuilder: FormBuilder
+    ) {
+        this.webBudget = this.formBuilder.group({
+
+        });
     }
 
+
+    public pages: number = 1;
+    public languages: number = 1;
 
     public budget : Budget = {
         name: '',
@@ -25,16 +35,12 @@ export class HomeService {
 
         if(this.budget.web) {
             this.budget.total = 500;
-            if(this.panelService.pages > 1 || this.panelService.languages > 1){
-                this.budget.total += (this.panelService.pages * this.panelService.languages * 30)
-                console.log("hola")
-            }
             } else {
             this.budget.total = 0;
-        }
-
+        }        
+        
         if (this.budget.consultoria) {
-            this.budget.total += 300;
+            this.budget.total += 300;            
         } else {
             this.budget.total += 0;
         }
@@ -48,5 +54,57 @@ export class HomeService {
     }
 
 
+    increasePages (): void {
+        this.pages += 1;
+        console.log(this.pages)
+        
+        this.increasePrice(this.pages, this.languages);
+
+      }
+    
+      decreasePages (): void {
+        if (this.pages > 1) {
+          this.pages -= 1;
+          this.decreasePrice(this.pages, this.languages);
+  
+        }
+      }
+    
+      increaseLanguages (): void {
+        this.languages += 1;
+        this.increasePrice(this.pages, this.languages);
+  
+      }
+    
+      decreaseLanguages (): void {
+        if (this.languages > 0) {
+          this.languages -= 1;
+            this.decreasePrice(this.pages, this.languages);
+        }
+      }
+
+        
+    increasePrice(pages: number, languages: number){
+        if(this.budget.total){
+                this.budget.total += (pages * languages * 30);      
+        }
+        return this.budget.total;
+    }
+    
+
+    decreasePrice(pages: number, languages: number){
+        if(this.budget.total){
+            if (languages > 0 ){
+                this.budget.total -= pages * languages * 30;
+            } else {
+                this.budget.total -= pages * 30;
+                
+            }            
+
+        }
+        return this.budget.total;
+
+        console.log(this.pages, this.languages)
+    }
     
 }

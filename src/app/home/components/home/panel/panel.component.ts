@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
+import { HomeService } from 'src/app/home/services/home.service';
 import { PanelService } from 'src/app/home/services/panel.service';
+import { FormControl, Validators } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-panel',
@@ -8,7 +12,24 @@ import { PanelService } from 'src/app/home/services/panel.service';
 })
 export class PanelComponent {
 
-  constructor ( public panelService : PanelService ){
+  pagesCtrl = new FormControl('', [Validators.required, Validators.maxLength(2), Validators.min(1)])
+  languagesCtrl = new FormControl('', [])
+
+
+  constructor ( public homeService : HomeService){
+
+    this.pagesCtrl.valueChanges.
+    pipe(
+      debounceTime(500)
+    )
+    .subscribe(value => {
+      console.log(value);
+    })
+
+  }
+  
+  getPages (event: Event) {
+    event.preventDefault();
 
   }
 
