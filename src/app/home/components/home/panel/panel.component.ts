@@ -16,10 +16,9 @@ export class PanelComponent {
   pagesCtrl = new FormControl('', [Validators.required, Validators.maxLength(2), Validators.min(1)])
   languagesCtrl = new FormControl('', [])
 
-
   contenido: any;
 
-  constructor ( public homeService : HomeService, public modal: NgbModal, public modalService : ModalService){
+  constructor ( public homeService : HomeService, public modalService: NgbModal){
 
     this.pagesCtrl.valueChanges.
     pipe(
@@ -29,9 +28,7 @@ export class PanelComponent {
       console.log(value);
     })
 
-
-  this.contenido = null;
-
+    
 
   }
 

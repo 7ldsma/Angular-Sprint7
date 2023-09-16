@@ -4,20 +4,24 @@
         <button type="button" class="btn btn-primary" (click)="homeService.decreasePages()">-</button>
         <input class="border border-0" style="text-align:center;" type="number" value="1" id="pages" [(ngModel)]="homeService.pages" [formControl]="pagesCtrl">
         <p *ngIf="pagesCtrl.errors && pagesCtrl.dirty">
-           <small *ngIf="pagesCtrl.hasError('required')">Debes ingresar un número de páginas</small> 
-           <small *ngIf="pagesCtrl.hasError('maxLength')">Ingresa un número de dos cifras</small> 
-           <small *ngIf="pagesCtrl.hasError('min')">Una web debe tener como mínimo una página</small> 
+           <small class="text-danger" *ngIf="pagesCtrl.hasError('required')">Debes ingresar un número de páginas</small> 
+           <small class="text-danger" *ngIf="pagesCtrl.hasError('maxLength')">Ingresa un número de dos cifras</small> 
+           <small class="text-danger" *ngIf="pagesCtrl.hasError('min')">Una web debe tener como mínimo una página</small> 
         </p>
         <button type="button" class="btn btn-primary" (click)="homeService.increasePages()">+</button>
-        <i (click)="modal.open(contenido)" class="bi bi-info-circle-fill mx-2" style="font-size:24px;"></i>
+        <i (click)="modalService.open(contenido)" class="bi bi-info-circle-fill mx-2" style="font-size:24px;"></i>
   
     </div>
     <div class="dflex">
         <p>Número de idiomas</p>
         <button type="button" class="btn btn-primary" (click)="homeService.decreaseLanguages()">-</button>
         <input class="border border-0 col-sm" style="text-align:center;" type="number" value="1" id="languages" [(ngModel)]="homeService.languages" [formControl]="languagesCtrl">
+        <p *ngIf="languagesCtrl.errors && pagesCtrl.dirty">
+            <small class="text-danger" *ngIf="languagesCtrl.hasError('required')">Debes ingresar un número de idiomas</small> 
+            <small class="text-danger" *ngIf="languagesCtrl.hasError('maxLength')">Ingresa un número de dos cifras</small> 
+         </p>
         <button type="button" class="btn btn-primary" (click)="homeService.increaseLanguages()">+</button>
-        <i (click)="modalService.openLG(contenido)" class="bi bi-info-circle-fill mx-2" style="font-size:24px;"></i>
+        <i (click)="modalService.open(contenido)" class="bi bi-info-circle-fill mx-2" style="font-size:24px;"></i>
 
     </div>
 </div>

@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Budget } from '../interfaces/budget.component';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class HomeService {
     
+    constructor( private FormBuilder: FormBuilder ) { 
 
-    public webBudget: FormGroup;
-    constructor( 
-        private formBuilder: FormBuilder
-    ) {
-        this.webBudget = this.formBuilder.group({
+        this.buildForm();
+     }
 
-        });
-    }
+    
 
+    budgetForm = this.FormBuilder.group({
+        name: ['', [Validators.required]],
+        client: ['', [Validators.required]],
+        budgetItems: ['', [Validators.required]]
+    });
 
-    public pages: number = 1;
-    public languages: number = 1;
 
     public budget : Budget = {
         name: '',
@@ -28,6 +29,28 @@ export class HomeService {
         total: 0,
       };
     
+      public pages: number = 1;
+      public languages: number = 1;
+
+
+    private buildForm(){
+        this.budgetForm.valueChanges.pipe(debounceTime(500)).subscribe(value => {console.log(value) })
+
+    } 
+
+    save(event: Event) {
+        event.preventDefault();
+        if(this.budgetForm.valid) {
+            const value = this.budgetForm.value;
+            console.log(value);
+        } else {
+            this.budgetForm.markAllAsTouched();
+        }
+    }
+
+    get nameField() {
+        return this.budgetForm.get('name');
+    }
 
 
     updatePrice(){
