@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-modal',
@@ -8,7 +8,9 @@ import { Component } from '@angular/core';
 })
 export class ModalComponent {
 
+constructor (private modal: NgbModal ) {
 
+}
 
 
 }

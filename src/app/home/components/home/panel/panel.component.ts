@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { HomeService } from 'src/app/home/services/home.service';
-import { PanelService } from 'src/app/home/services/panel.service';
 import { FormControl, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 
