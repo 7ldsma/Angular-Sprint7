@@ -1,4 +1,5 @@
 <div class="d-inline-flex flex-column p-4 border rounded-3">
+    <form class="needs-validation" novalidate>
     <div class="dflex ">
         <p>Número de páginas</p>
         <button type="button" class="btn btn-primary" (click)="homeService.decreasePages()">-</button>
@@ -8,6 +9,8 @@
            <small class="text-danger" *ngIf="pagesCtrl.hasError('maxLength')">Ingresa un número de dos cifras</small> 
            <small class="text-danger" *ngIf="pagesCtrl.hasError('min')">Una web debe tener como mínimo una página</small> 
         </p>
+        <div class="invalid-feedback">whr</div>
+
         <button type="button" class="btn btn-primary" (click)="homeService.increasePages()">+</button>
         <i (click)="modalService.open(contenido)" class="bi bi-info-circle-fill mx-2" style="font-size:24px;"></i>
   
@@ -16,7 +19,7 @@
         <p>Número de idiomas</p>
         <button type="button" class="btn btn-primary" (click)="homeService.decreaseLanguages()">-</button>
         <input class="border border-0 col-sm" style="text-align:center;" type="number" value="1" id="languages" [(ngModel)]="homeService.languages" [formControl]="languagesCtrl">
-        <p *ngIf="languagesCtrl.errors && pagesCtrl.dirty">
+        <p *ngIf="languagesCtrl.errors && languagesCtrl.dirty">
             <small class="text-danger" *ngIf="languagesCtrl.hasError('required')">Debes ingresar un número de idiomas</small> 
             <small class="text-danger" *ngIf="languagesCtrl.hasError('maxLength')">Ingresa un número de dos cifras</small> 
          </p>
@@ -24,5 +27,6 @@
         <i (click)="modalService.open(contenido)" class="bi bi-info-circle-fill mx-2" style="font-size:24px;"></i>
 
     </div>
+    </form>
 </div>
 

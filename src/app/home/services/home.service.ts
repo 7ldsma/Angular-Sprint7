@@ -11,13 +11,18 @@ export class HomeService {
         this.buildForm();
      }
 
-    
+        
 
     budgetForm = this.FormBuilder.group({
-        name: ['', [Validators.required]],
-        client: ['', [Validators.required]],
-        budgetItems: ['', [Validators.required]]
+        name: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+        client: ['', Validators.compose([Validators.required,Validators.minLength(3)])],
+        web: ['', []],
+        consultoria: ['', []],
+        adds: ['', []]
+
     });
+
+    public budgetList: Budget[] = [];
 
 
     public budget : Budget = {
@@ -28,6 +33,7 @@ export class HomeService {
         adds: false,
         total: 0,
       };
+
     
       public pages: number = 1;
       public languages: number = 1;
@@ -41,11 +47,14 @@ export class HomeService {
     save(event: Event) {
         event.preventDefault();
         if(this.budgetForm.valid) {
-            const value = this.budgetForm.value;
-            console.log(value);
+            const value = this.budgetForm.value as Budget;
+            this.budgetList.push(value);
+            this.budgetForm.reset();
         } else {
             this.budgetForm.markAllAsTouched();
         }
+
+        console.log(this.budgetList)
     }
 
     get nameField() {
