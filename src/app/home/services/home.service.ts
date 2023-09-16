@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Budget } from '../interfaces/budget.component';
-import { PanelService } from './panel.service';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Injectable({providedIn: 'root'})

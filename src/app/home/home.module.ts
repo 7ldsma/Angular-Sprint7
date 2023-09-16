@@ -3,15 +3,16 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './components/home/home.component';
 import { FormsModule } from '@angular/forms';
 import { PanelComponent } from './components/home/panel/panel.component';
-import { PanelService } from './services/panel.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ModalComponent } from './components/modal/modal.component';
 
 
 
 @NgModule({
   declarations: [
     HomeComponent,
-    PanelComponent
+    PanelComponent,
+    ModalComponent
   ],
   exports: [
     HomeComponent,

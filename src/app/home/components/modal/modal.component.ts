@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'app-modal',
@@ -8,9 +9,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ModalComponent {
 
-constructor (private modal: NgbModal ) {
+constructor (public modalService: ModalService,  ) {
 
 }
+
+
 
 
 }

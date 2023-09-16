@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { HomeService } from 'src/app/home/services/home.service';
 import { FormControl, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalService } from 'src/app/home/services/modal.service';
 
 
 @Component({
@@ -15,7 +17,9 @@ export class PanelComponent {
   languagesCtrl = new FormControl('', [])
 
 
-  constructor ( public homeService : HomeService){
+  contenido: any;
+
+  constructor ( public homeService : HomeService, public modal: NgbModal, public modalService : ModalService){
 
     this.pagesCtrl.valueChanges.
     pipe(
@@ -25,7 +29,13 @@ export class PanelComponent {
       console.log(value);
     })
 
+
+  this.contenido = null;
+
+
   }
+
+
   
   getPages (event: Event) {
     event.preventDefault();
