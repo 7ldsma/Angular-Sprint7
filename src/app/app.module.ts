@@ -9,6 +9,7 @@ import { HomeComponent } from './home/components/home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalComponent } from './home/components/modal/modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BudgetlistComponent } from './home/components/budgetlist/budgetlist.component';
 
 
 const appRoutes: Routes = [
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     WelcomeComponent,
+    BudgetlistComponent,
   ],
   imports: [
     BrowserModule,

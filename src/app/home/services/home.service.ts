@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Budget } from '../interfaces/budget.component';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
@@ -14,13 +14,24 @@ export class HomeService {
         
 
     budgetForm = this.FormBuilder.group({
-        name: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-        client: ['', Validators.compose([Validators.required,Validators.minLength(3)])],
+        name: ['', Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z]{3,}$/)])],
+        client: ['', Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z]{3,}$/)])],
         web: ['', []],
         consultoria: ['', []],
         adds: ['', []]
+    }, { Validator: (control: AbstractControl<any, any>) => this.atLeastOneSelected(control)}); 
 
-    });
+    atLeastOneSelected(control: AbstractControl) {
+        const web = control.get('web')?.value;
+        const consultoria = control.get('consultoria')?.value;
+        const adds = control.get('adds')?.value;
+    
+        if (!(web || consultoria || adds)) {
+            return { atLeastOneSelected: true };
+        }
+        console.log("no hay seleccion")
+        return null;
+    }
 
     public budgetList: Budget[] = [];
 
@@ -61,6 +72,9 @@ export class HomeService {
         return this.budgetForm.get('name');
     }
 
+    get clientField() {
+        return this.budgetForm.get('client');
+    }
 
     updatePrice(){
 
