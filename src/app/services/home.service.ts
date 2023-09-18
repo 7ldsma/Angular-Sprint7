@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Budget } from '../interfaces/budget.component';
+import { Budget } from '../home/interfaces/budget.component';
 import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class HomeService {
     
-    constructor( private FormBuilder: FormBuilder ) { 
+    constructor( private FormBuilder: FormBuilder) { 
 
         this.buildForm();
      }
@@ -26,7 +26,7 @@ export class HomeService {
         const consultoria = control.get('consultoria')?.value;
         const adds = control.get('adds')?.value;
     
-        if (!(web || consultoria || adds)) {
+        if ((web || consultoria || adds)) {
             return { atLeastOneSelected: true };
         }
         console.log("no hay seleccion")

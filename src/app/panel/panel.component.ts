@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { HomeService } from 'src/app/home/services/home.service';
+import { HomeService } from 'src/app/services/home.service';
 import { FormControl, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalService } from 'src/app/home/services/modal.service';
 
 
 @Component({
@@ -13,12 +12,12 @@ import { ModalService } from 'src/app/home/services/modal.service';
 })
 export class PanelComponent {
 
-  pagesCtrl = new FormControl('', [Validators.required, Validators.maxLength(2), Validators.min(1)])
-  languagesCtrl = new FormControl('', [])
+  pagesCtrl = new FormControl('', [Validators.required, Validators.pattern(/^(?!0)\d{1,2}$/)])
+  languagesCtrl = new FormControl('', [Validators.pattern(/^\d{1,2}$/)])
 
   contenido: any;
 
-  constructor ( public homeService : HomeService, public modalService: NgbModal){
+  constructor ( public homeService : HomeService, public ngbModal: NgbModal){
 
     this.pagesCtrl.valueChanges.
     pipe(
@@ -33,7 +32,6 @@ export class PanelComponent {
   }
 
 
-  
   getPages (event: Event) {
     event.preventDefault();
 
