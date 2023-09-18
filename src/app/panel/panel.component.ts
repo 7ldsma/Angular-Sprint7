@@ -13,9 +13,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class PanelComponent {
 
   pagesCtrl = new FormControl('', [Validators.required, Validators.pattern(/^(?!0)\d{1,2}$/)])
-  languagesCtrl = new FormControl('', [Validators.pattern(/^\d{1,2}$/)])
+  languagesCtrl = new FormControl('', [Validators.required, Validators.pattern(/^\d{1,2}$/)])
 
   contenido: any;
+
+  modalMessage: string = '';
+
 
   constructor ( public homeService : HomeService, public ngbModal: NgbModal){
 
@@ -37,5 +40,12 @@ export class PanelComponent {
 
   }
 
+  pagesModal() {
+    this.modalMessage = "Every Website must have at least one page.";
+  }
+
+  languagesModal() {
+    this.modalMessage = "If the number of languages selected is 0, the Website will be developed in english"
+  }
 
 }

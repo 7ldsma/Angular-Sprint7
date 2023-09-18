@@ -11,11 +11,11 @@
                     <input type="text" formControlName = "name">
                 </p>
                 <div *ngIf="homeService.nameField && homeService.nameField.errors && homeService.nameField.touched">
-                    <div class="text-danger errormsg" *ngIf="homeService.nameField.hasError('required')">
-                        A budget name is required.
-                    </div>
+                    <p class="text-danger errormsg" *ngIf="homeService.nameField.hasError('required')">
+                        <small>A budget name is required.</small>
+                    </p>
                     <p class="text-danger errormsg" *ngIf="homeService.nameField?.hasError('pattern')">
-                        A Client name should be of at least 3 characters.
+                        <small>A Client name should be of at least 3 characters.</small>
                     </p> 
                 </div>
             
@@ -25,14 +25,14 @@
                 </p>
                 <div *ngIf="homeService.clientField && homeService.clientField.errors && homeService.clientField.touched">
                     <p class="text-danger errormsg" *ngIf="homeService.clientField.hasError('required')">
-                        A Client name is required.
+                        <small>A Client name is required.</small>
                     </p> 
                     <p class="text-danger errormsg" *ngIf="homeService.clientField.hasError('pattern')">
-                        A Client name should be of at least 3 characters.
+                        <small>A Client name should be of at least 3 characters.</small>
                     </p> 
                 </div>
             
-                <p>¿Qué quieres hacer?</p>
+                <p>What would you like to do?</p>
                 
                 <div class="form-check pt-2">
                     <input webCheckbox 
@@ -46,7 +46,7 @@
                     (change)="homeService.updatePrice()"
                     />
                     <label class="form-check-label" for="webCheck">
-                        Una página web (500€)
+                        Web Site (500€)
                       </label>
                 
                 </div>
@@ -66,7 +66,7 @@
                     (change)="homeService.updatePrice()"
                     />
                     <label class="form-check-label" for="consultCheck">
-                        Una consultoría de SEO (300€)
+                        SEO Consultancy (300€)
                     </label>
                 </div>
                 <div class="form-check pt-2">
@@ -81,11 +81,11 @@
                     (change)="homeService.updatePrice()"
                     />
                     <label class="form-check-label" for="addsCheck">
-                        Una campaña de Google Adds (200€)
+                        Google Adds Campaign (200€)
                     </label>
                 </div>
                 <div class="total pt-2">
-                    <p>El precio total es: {{ homeService.budget.total }} €</p>
+                    <p>Your budget: {{ homeService.budget.total }} €</p>
                 </div>
             
             
