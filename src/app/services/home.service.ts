@@ -11,32 +11,7 @@ export class HomeService {
         this.buildForm();
      }
 
-        
-
-    budgetForm = this.FormBuilder.group({
-        name: ['', Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z]{3,}$/)])],
-        client: ['', Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z]{3,}$/)])],
-        web: ['', []],
-        consultoria: ['', []],
-        adds: ['', []]
-    }, { Validator: (control: AbstractControl<any, any>) => this.atLeastOneSelected(control)}); 
-
-    atLeastOneSelected(control: AbstractControl) {
-        const web = control.get('web')?.value;
-        const consultoria = control.get('consultoria')?.value;
-        const adds = control.get('adds')?.value;
-    
-        if ((web || consultoria || adds)) {
-            return { atLeastOneSelected: true };
-        }
-        console.log("no hay seleccion")
-        return null;
-    }
-
-    public budgetList: Budget[] = [];
-
-
-    public budget : Budget = {
+     public budget : Budget = {
         name: '',
         client: '',
         web: false,
@@ -45,11 +20,21 @@ export class HomeService {
         total: 0,
       };
 
-    
-      public pages: number = 1;
-      public languages: number = 1;
+
+        
+    budgetForm = this.FormBuilder.group({
+        name: ['', Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z]{3,}$/)])],
+        client: ['', Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z]{3,}$/)])],
+        web: ['', []],
+        consultoria: ['', []],
+        adds: ['', []]
+    }, {}); 
 
 
+
+    public budgetList: Budget[] = [];
+
+  
     private buildForm(){
         this.budgetForm.valueChanges.pipe(debounceTime(500)).subscribe(value => {console.log(value) })
 
@@ -76,80 +61,8 @@ export class HomeService {
         return this.budgetForm.get('client');
     }
 
-    updatePrice(){
-
-        if(this.budget.web) {
-            this.budget.total = 500;
-            } else {
-            this.budget.total = 0;
-        }        
-        
-        if (this.budget.consultoria) {
-            this.budget.total += 300;            
-        } else {
-            this.budget.total += 0;
-        }
-
-        if (this.budget.adds) {
-            this.budget.total += 200;
-        } else {
-            this.budget.total += 0;        
-        }
-
-    }
 
 
-    increasePages (): void {
-        this.pages += 1;
-        console.log(this.pages)
-        
-        this.increasePrice(this.pages, this.languages);
-
-      }
     
-      decreasePages (): void {
-        if (this.pages > 1) {
-          this.pages -= 1;
-          this.decreasePrice(this.pages, this.languages);
-  
-        }
-      }
-    
-      increaseLanguages (): void {
-        this.languages += 1;
-        this.increasePrice(this.pages, this.languages);
-  
-      }
-    
-      decreaseLanguages (): void {
-        if (this.languages > 0) {
-          this.languages -= 1;
-            this.decreasePrice(this.pages, this.languages);
-        }
-      }
-
-        
-    increasePrice(pages: number, languages: number){
-        if(this.budget.total){
-                this.budget.total += (pages * languages * 30);      
-        }
-        return this.budget.total;
-    }
-    
-
-    decreasePrice(pages: number, languages: number){
-        if(this.budget.total){
-            if (languages > 0 ){
-                this.budget.total -= pages * languages * 30;
-            } else {
-                this.budget.total -= pages * 30;
-                
-            }            
-
-        }
-        return this.budget.total;
-
-        console.log(this.pages, this.languages)
-    }
     
 }

@@ -6,30 +6,30 @@
             
             <form [formGroup]="homeService.budgetForm" needs-validation novalidate (ngSubmit)="homeService.save($event)">
             
-                <p>
+                <div>
                     Budget Name: <br/>
                     <input type="text" formControlName = "name">
-                </p>
+                </div>
                 <div *ngIf="homeService.nameField && homeService.nameField.errors && homeService.nameField.touched">
-                    <p class="text-danger errormsg" *ngIf="homeService.nameField.hasError('required')">
-                        <small>A budget name is required.</small>
-                    </p>
-                    <p class="text-danger errormsg" *ngIf="homeService.nameField?.hasError('pattern')">
-                        <small>A Client name should be of at least 3 characters.</small>
-                    </p> 
+                    <small class="text-danger errormsg" *ngIf="homeService.nameField.hasError('required')">
+                        A budget name is required.
+                    </small>
+                    <small class="text-danger errormsg" *ngIf="homeService.nameField?.hasError('pattern')">
+                        A Client name should be of at least 3 characters.
+                    </small> 
                 </div>
             
-                <p>
+                <div>
                     Client: <br/>
                     <input type="text" formControlName = "client">
-                </p>
+                </div>
                 <div *ngIf="homeService.clientField && homeService.clientField.errors && homeService.clientField.touched">
-                    <p class="text-danger errormsg" *ngIf="homeService.clientField.hasError('required')">
-                        <small>A Client name is required.</small>
-                    </p> 
-                    <p class="text-danger errormsg" *ngIf="homeService.clientField.hasError('pattern')">
-                        <small>A Client name should be of at least 3 characters.</small>
-                    </p> 
+                    <small class="text-danger errormsg" *ngIf="homeService.clientField.hasError('required')">
+                        A Client name is required.
+                    </small> 
+                    <small class="text-danger errormsg" *ngIf="homeService.clientField.hasError('pattern')">
+                        A Client name should be of at least 3 characters.
+                    </small> 
                 </div>
             
                 <p>What would you like to do?</p>
@@ -38,19 +38,19 @@
                     <input webCheckbox 
                     formControlName = "web"
                     type="checkbox"
-                    [(ngModel)] = "homeService.budget.web"
+                    [(ngModel)] = "this.homeService.budget.web"
                     name = "web"
                     class="form-check-input"
                     value="false"
                     id="webCheck"
-                    (change)="homeService.updatePrice()"
+                    (change)="this.updatePrice()"
                     />
                     <label class="form-check-label" for="webCheck">
                         Web Site (500€)
                       </label>
                 
                 </div>
-                <div *ngIf="homeService.budget.web !== false">
+                <div *ngIf="this.homeService.budget.web !== false">
                     <app-panel></app-panel>
                 </div>
                 
@@ -58,12 +58,12 @@
                     <input consultoriaCheckbox 
                     formControlName = "consultoria"
                     type="checkbox"
-                    [(ngModel)] = "homeService.budget.consultoria"
+                    [(ngModel)] = "this.homeService.budget.consultoria"
                     name = "consultoria"
                     class="form-check-input"
                     value="false"
                     id="consultCheck"
-                    (change)="homeService.updatePrice()"
+                    (change)="this.updatePrice()"
                     />
                     <label class="form-check-label" for="consultCheck">
                         SEO Consultancy (300€)
@@ -73,19 +73,19 @@
                     <input addsCheckbox 
                     formControlName = "adds"
                     type="checkbox"
-                    [(ngModel)] = "homeService.budget.adds"
+                    [(ngModel)] = "this.homeService.budget.adds"
                     name = "adds"
                     class="form-check-input"
                     value="false"
                     id="addsCheck"
-                    (change)="homeService.updatePrice()"
+                    (change)="this.updatePrice()"
                     />
                     <label class="form-check-label" for="addsCheck">
                         Google Adds Campaign (200€)
                     </label>
                 </div>
                 <div class="total pt-2">
-                    <p>Your budget: {{ homeService.budget.total }} €</p>
+                    <p>Your budget: {{ this.homeService.budget.total }} €</p>
                 </div>
             
             

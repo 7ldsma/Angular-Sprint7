@@ -1,49 +1,61 @@
 <div class="d-inline-flex flex-column p-4 border rounded-3 bg-light">
     <form class="" novalidate>
-    <div class="row">
-        <p>Number of pages</p>
-        
-        <div class="d-flex">
-            <button type="button" class="btn btn-primary" (click)="homeService.decreasePages()">-</button>
-            
-            <input class="form-control border border-0" style="text-align:center; width: 80px;" type="number" value="1" id="pages" [(ngModel)]="homeService.pages" [formControl]="pagesCtrl">
-                <p *ngIf="pagesCtrl.errors && pagesCtrl.dirty">
-                   <small class="text-danger" *ngIf="pagesCtrl.hasError('required')">Intoduce the number of pages</small> 
-                   <small class="text-danger" *ngIf="pagesCtrl.hasError('pattern')">Introduce a number in between 1 and 99</small> 
-                </p>
-    
-            <button type="button" class="btn btn-primary" (click)="homeService.increasePages()">+</button>
-                
-                
-            <i (click)="pagesModal(); ngbModal.open(contenido)" class="bi bi-info-circle-fill mx-2" style="font-size:24px;"></i>
+        <div class="row">
+            <p>Number of pages</p>
+            <div class="row">
+
+                <div class="d-flex">
+                    <button type="button" class="btn btn-primary" (click)="this.decreasePages()">-</button>
+                    
+                    <input class="form-control border border-0" style="text-align:center; width: 80px;" type="number" value="1" id="pages" [(ngModel)]="this.pages" [formControl]="pagesCtrl">
+                    
+                    <button type="button" class="btn btn-primary" (click)="this.increasePages()">+</button>
+
+                    <i (click)="pagesModal(); ngbModal.open(contenido)" class="bi bi-info-circle-fill mx-2" style="font-size:24px;"></i>
+
+            </div>
+
+            <div class="row" *ngIf="pagesCtrl.errors && pagesCtrl.dirty">
+
+                <small class="text-danger" *ngIf="pagesCtrl.hasError('required')">Intoduce the number of pages</small> 
+                <small class="text-danger" *ngIf="pagesCtrl.hasError('pattern')">Introduce a number in between 1 and 99</small> 
+
+            </div>          
 
         </div>
-
   
-    </div>
-    <div class="row mt-3">
-        <p>Number of languages</p>
-
-        <div class="d-flex">
-            
-            <button type="button" class="btn btn-primary" (click)="homeService.decreaseLanguages()">-</button>
-    
-            <input class="form-control border border-0" style="text-align:center; width: 80px;" type="number" value="1" id="languages" [(ngModel)]="homeService.languages" [formControl]="languagesCtrl">
-            
-            <p *ngIf="languagesCtrl.errors && languagesCtrl.dirty">
-                <small class="text-danger" *ngIf="languagesCtrl.hasError('pattern')">Introduce a number in between 1 and 99</small>
-                <small class="text-danger" *ngIf="languagesCtrl.hasError('required')">Intoduce the number of pages</small> 
-            </p>
-            
-            <button type="button" class="btn btn-primary" (click)="homeService.increaseLanguages()">+</button>
-            
-            <i (click)="languagesModal();ngbModal.open(contenido)" class="bi bi-info-circle-fill mx-2" style="font-size:24px;"></i>
         </div>
 
+        <div class="row mt-3">
+            <p>Number of languages</p>
 
-    </div>
+            <div class="row">
+                <div class="d-flex">
+                
+                    <button type="button" class="btn btn-primary" (click)="this.decreaseLanguages()">-</button>
+            
+                    <input class="form-control border border-0" style="text-align:center; width: 80px;" type="number" value="1" id="languages" [(ngModel)]="this.languages" [formControl]="languagesCtrl">
+                    
+                    <button type="button" class="btn btn-primary" (click)="this.increaseLanguages()">+</button>
+                    
+                    <i (click)="languagesModal();ngbModal.open(contenido)" class="bi bi-info-circle-fill mx-2" style="font-size:24px;"></i>
+
+            </div>
+                <div class="row">
+
+                    <div *ngIf="languagesCtrl.errors && languagesCtrl.dirty">
+                        <small class="text-danger" *ngIf="languagesCtrl.hasError('pattern')">Introduce a number in between 1 and 99</small>
+                        <small class="text-danger" *ngIf="languagesCtrl.hasError('required')">Intoduce the number of pages</small> 
+                    </div>
+
+                </div>               
+                
+            </div>
+
+        </div>
     </form>
 </div>
+
 
 <ng-template #contenido let-modal>
     <div class="modal-header justify-content-end">
