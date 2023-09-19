@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { HomeService } from 'src/app/services/home.service';
 import { FormControl, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BudgetlistService } from '../services/budgetlist.service';
 
 
 @Component({
@@ -11,6 +11,22 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./panel.component.css']
 })
 export class PanelComponent {
+
+
+
+  constructor ( public budgetlistService : BudgetlistService, public ngbModal: NgbModal){
+
+    this.pagesCtrl.valueChanges.
+    pipe(
+      debounceTime(500)
+    )
+    .subscribe(value => {
+      console.log(value);
+    })    
+
+  }
+
+
 
   pagesCtrl = new FormControl('', [Validators.required, Validators.pattern(/^(?!0)\d{1,2}$/)])
   languagesCtrl = new FormControl('', [Validators.required, Validators.pattern(/^\d{1,2}$/)])
@@ -23,17 +39,6 @@ export class PanelComponent {
   modalMessage: string = '';
 
 
-  constructor ( public homeService : HomeService, public ngbModal: NgbModal){
-
-    this.pagesCtrl.valueChanges.
-    pipe(
-      debounceTime(500)
-    )
-    .subscribe(value => {
-      console.log(value);
-    })    
-
-  }
 
   getPages (event: Event) {
     event.preventDefault();
@@ -53,54 +58,54 @@ export class PanelComponent {
     this.pages += 1;
     console.log(this.pages)
     
-    this.increasePrice(this.pages, this.languages);
+    // this.increasePrice(this.pages, this.languages);
 
   }
 
   decreasePages (): void {
     if (this.pages > 1) {
       this.pages -= 1;
-      this.decreasePrice(this.pages, this.languages);
+      // this.decreasePrice(this.pages, this.languages);
 
     }
   }
 
   increaseLanguages (): void {
     this.languages += 1;
-    this.increasePrice(this.pages, this.languages);
+    // this.increasePrice(this.pages, this.languages);
 
   }
 
   decreaseLanguages (): void {
     if (this.languages > 0) {
       this.languages -= 1;
-        this.decreasePrice(this.pages, this.languages);
+        // this.decreasePrice(this.pages, this.languages);
     }
   }
 
     
-increasePrice(pages: number, languages: number){
-    if(this.homeService.budget.total){
-            this.homeService.budget.total += (pages * languages * 30);      
-    }
-    return this.homeService.budget.total;
-}
+// increasePrice(pages: number, languages: number){
+//     if(this.homeService.budget.total){
+//             this.homeService.budget.total += (pages * languages * 30);      
+//     }
+//     return this.homeService.budget.total;
+// }
 
 
-decreasePrice(pages: number, languages: number){
-    if(this.homeService.budget.total){
-        if (languages > 0 ){
-            this.homeService.budget.total -= pages * languages * 30;
-        } else {
-            this.homeService.budget.total -= pages * 30;
+// decreasePrice(pages: number, languages: number){
+//     if(this.homeService.budget.total){
+//         if (languages > 0 ){
+//             this.homeService.budget.total -= pages * languages * 30;
+//         } else {
+//             this.homeService.budget.total -= pages * 30;
             
-        }            
+//         }            
 
-    }
-    return this.homeService.budget.total;
+//     }
+//     return this.homeService.budget.total;
 
-    console.log(this.pages, this.languages)
-}
+//     console.log(this.pages, this.languages)
+// }
 
 
 

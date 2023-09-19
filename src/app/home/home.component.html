@@ -4,17 +4,17 @@
     <div class="row">
         <div class="col col-6-xl bg-secondary-subtle p-4">
             
-            <form [formGroup]="homeService.budgetForm" needs-validation novalidate (ngSubmit)="homeService.save($event)">
+            <form [formGroup]="budgetForm" needs-validation novalidate (ngSubmit)="this.save($event)">
             
                 <div>
                     Budget Name: <br/>
                     <input type="text" formControlName = "name">
                 </div>
-                <div *ngIf="homeService.nameField && homeService.nameField.errors && homeService.nameField.touched">
-                    <small class="text-danger errormsg" *ngIf="homeService.nameField.hasError('required')">
+                <div *ngIf="this.nameField && this.nameField.errors && this.nameField.touched">
+                    <small class="text-danger errormsg" *ngIf="this.nameField.hasError('required')">
                         A budget name is required.
                     </small>
-                    <small class="text-danger errormsg" *ngIf="homeService.nameField?.hasError('pattern')">
+                    <small class="text-danger errormsg" *ngIf="this.nameField?.hasError('pattern')">
                         A Client name should be of at least 3 characters.
                     </small> 
                 </div>
@@ -23,11 +23,11 @@
                     Client: <br/>
                     <input type="text" formControlName = "client">
                 </div>
-                <div *ngIf="homeService.clientField && homeService.clientField.errors && homeService.clientField.touched">
-                    <small class="text-danger errormsg" *ngIf="homeService.clientField.hasError('required')">
+                <div *ngIf="this.clientField && this.clientField.errors && this.clientField.touched">
+                    <small class="text-danger errormsg" *ngIf="this.clientField.hasError('required')">
                         A Client name is required.
                     </small> 
-                    <small class="text-danger errormsg" *ngIf="homeService.clientField.hasError('pattern')">
+                    <small class="text-danger errormsg" *ngIf="this.clientField.hasError('pattern')">
                         A Client name should be of at least 3 characters.
                     </small> 
                 </div>
@@ -38,7 +38,7 @@
                     <input webCheckbox 
                     formControlName = "web"
                     type="checkbox"
-                    [(ngModel)] = "this.homeService.budget.web"
+                    [(ngModel)] = "this.budget.web"
                     name = "web"
                     class="form-check-input"
                     value="false"
@@ -50,7 +50,7 @@
                       </label>
                 
                 </div>
-                <div *ngIf="this.homeService.budget.web !== false">
+                <div *ngIf="this.budget.web !== false">
                     <app-panel></app-panel>
                 </div>
                 
@@ -58,7 +58,7 @@
                     <input consultoriaCheckbox 
                     formControlName = "consultoria"
                     type="checkbox"
-                    [(ngModel)] = "this.homeService.budget.consultoria"
+                    [(ngModel)] = "this.budget.consultoria"
                     name = "consultoria"
                     class="form-check-input"
                     value="false"
@@ -73,7 +73,7 @@
                     <input addsCheckbox 
                     formControlName = "adds"
                     type="checkbox"
-                    [(ngModel)] = "this.homeService.budget.adds"
+                    [(ngModel)] = "this.budget.adds"
                     name = "adds"
                     class="form-check-input"
                     value="false"
@@ -84,8 +84,15 @@
                         Google Adds Campaign (200€)
                     </label>
                 </div>
+
+                <div *ngIf="this.budgetForm.hasError('serviceCheck')">
+                    <small class="text-danger errormsg">
+                        A service must be selected. Web, Consultancy and/or Google adds Campaign.
+                    </small>
+                </div>
+
                 <div class="total pt-2">
-                    <p>Your budget: {{ this.homeService.budget.total }} €</p>
+                    <p>Your budget: {{ this.budget.total }} €</p>
                 </div>
             
             

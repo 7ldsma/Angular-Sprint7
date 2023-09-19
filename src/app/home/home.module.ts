@@ -13,7 +13,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     PanelComponent,
   ],
   exports: [
-    HomeComponent,
     PanelComponent
   ],
   imports: [
