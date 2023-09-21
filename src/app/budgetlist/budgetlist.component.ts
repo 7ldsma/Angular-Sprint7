@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { BudgetlistService } from '../services/budgetlist.service';
+import { Budget } from '../home/interfaces/budget.component';
 
 @Component({
   selector: 'app-budgetlist',
@@ -7,4 +9,16 @@ import { Component } from '@angular/core';
 })
 export class BudgetlistComponent {
 
+
+  constructor ( private budgetlistService: BudgetlistService){
+
+  }
+
+  get lists() {
+    return this.budgetlistService.getBudgetList();
+  }
+  
+
+  
+  
 }

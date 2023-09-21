@@ -1,1 +1,22 @@
-<p>budgetlist works!</p>
+<div class="container">
+    <ng-container *ngIf="this.lists">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Client</th>
+            <th scope="col">Budget Name</th>
+            <th scope="col">Services</th>
+            <th scope="col">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+                <tbody *ngFor="let budget of lists; let i = index">
+                    <td>{{budget.name}}</td>
+                    <td>{{budget.client}}</td>
+                    <td>{{budget.web}}</td> 
+                    <td>{{budget.total}}</td> 
+        </tbody>
+              
+      </table>
+    </ng-container>
+</div>

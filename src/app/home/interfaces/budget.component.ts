@@ -1,7 +1,11 @@
 export interface Budget {
     name?: string;
     client?: string;
-    web?: boolean;
+    web?: {
+        enabled: boolean;
+        pages: number;
+        languages: number
+    };
     consultoria?: boolean;
     adds?: boolean;
     total?: number;

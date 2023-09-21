@@ -8,7 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { BudgetlistComponent } from './budgetlist/budgetlist.component';
+import { BudgetlistService } from './services/budgetlist.service';
 
 
 const appRoutes: Routes = [
@@ -23,7 +23,6 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     WelcomeComponent,
-    BudgetlistComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +31,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     NgbModule
   ],
-  providers: [],
+  providers: [BudgetlistService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

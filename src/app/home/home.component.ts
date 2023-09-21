@@ -12,7 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class HomeComponent {
 
-  constructor ( public budgetlistService: BudgetlistService, private FormBuilder: FormBuilder){
+  constructor ( private budgetlistService: BudgetlistService, private FormBuilder: FormBuilder){
 
     this.buildForm();
 
@@ -21,11 +21,17 @@ export class HomeComponent {
   public budget : Budget = {
     name: '',
     client: '',
-    web: false,
+    web: {
+        enabled: false,
+        pages: 0,
+        languages: 0,
+    },
     consultoria: false,
     adds: false,
     total: 0,
   };
+
+
 
 
     
@@ -50,14 +56,18 @@ save(event: Event) {
     event.preventDefault();
     if(this.budgetForm.valid) {
         const value = this.budgetForm.value as Budget;
-        this.budgetList.push(value);
-        this.budgetForm.reset();
+        value.total = this.budget.total;
+        this.budgetlistService.addBudget(value);
+        
     } else {
         this.budgetForm.markAllAsTouched();
     }
+    this.budget.total = 0;
+    this.budgetForm.reset();
 
-    console.log(this.budgetList)
 }
+
+
 
 get nameField() {
     return this.budgetForm.get('name');
@@ -91,14 +101,17 @@ serviceCheck (control: AbstractControl) {
 
   updatePrice(){
 
+    let totalWebBudget:number = 0;
+
     if(this.budget.web) {
-        this.budget.total = 500;
+        totalWebBudget = this.budgetlistService.calculateTotal(500, 1, 1);
+        this.budget.total = totalWebBudget;
         } else {
         this.budget.total = 0;
     }        
     
     if (this.budget.consultoria) {
-        this.budget.total += 300;            
+        this.budget.total += 300 ; 
     } else {
         this.budget.total += 0;
     }
@@ -106,7 +119,7 @@ serviceCheck (control: AbstractControl) {
     if (this.budget.adds) {
         this.budget.total += 200;
     } else {
-        this,this.budget.total += 0;        
+        this.budget.total += 0;        
     }
 
 }

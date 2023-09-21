@@ -36,8 +36,8 @@ export class PanelComponent {
   public pages: number = 1;
   public languages: number = 1;
 
-  modalMessage: string = '';
 
+  modalMessage: string = '';
 
 
   getPages (event: Event) {
@@ -57,7 +57,7 @@ export class PanelComponent {
   increasePages (): void {
     this.pages += 1;
     console.log(this.pages)
-    
+    this.budgetlistService.calculateTotal(500, this.pages, this.languages);
     // this.increasePrice(this.pages, this.languages);
 
   }
@@ -65,6 +65,8 @@ export class PanelComponent {
   decreasePages (): void {
     if (this.pages > 1) {
       this.pages -= 1;
+      this.budgetlistService.calculateTotal(500, this.pages, this.languages);
+
       // this.decreasePrice(this.pages, this.languages);
 
     }
@@ -72,6 +74,8 @@ export class PanelComponent {
 
   increaseLanguages (): void {
     this.languages += 1;
+    this.budgetlistService.calculateTotal(500 , this.pages, this.languages);
+
     // this.increasePrice(this.pages, this.languages);
 
   }
@@ -79,6 +83,7 @@ export class PanelComponent {
   decreaseLanguages (): void {
     if (this.languages > 0) {
       this.languages -= 1;
+      this.budgetlistService.calculateTotal(500, this.pages, this.languages);
         // this.decreasePrice(this.pages, this.languages);
     }
   }

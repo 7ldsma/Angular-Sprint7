@@ -7,6 +7,20 @@
             <form [formGroup]="budgetForm" needs-validation novalidate (ngSubmit)="this.save($event)">
             
                 <div>
+                    Client: <br/>
+                    <input type="text" formControlName = "client">
+                </div>
+                <div *ngIf="this.clientField && this.clientField.errors && this.clientField.touched">
+                    <small class="text-danger errormsg" *ngIf="this.clientField.hasError('required')">
+                        A Client name is required.
+                    </small> 
+                    <small class="text-danger errormsg" *ngIf="this.clientField.hasError('pattern')">
+                        A Client name should be of at least 3 characters.
+                    </small> 
+                </div>
+
+
+                <div>
                     Budget Name: <br/>
                     <input type="text" formControlName = "name">
                 </div>
@@ -19,85 +33,78 @@
                     </small> 
                 </div>
             
-                <div>
-                    Client: <br/>
-                    <input type="text" formControlName = "client">
-                </div>
-                <div *ngIf="this.clientField && this.clientField.errors && this.clientField.touched">
-                    <small class="text-danger errormsg" *ngIf="this.clientField.hasError('required')">
-                        A Client name is required.
-                    </small> 
-                    <small class="text-danger errormsg" *ngIf="this.clientField.hasError('pattern')">
-                        A Client name should be of at least 3 characters.
-                    </small> 
-                </div>
+
+
+                <div class="pt-3">
+
+                    <div>What would you like to do?</div>
+                         
+                    <div class="form-check pt-2">
+                        <input webCheckbox 
+                        formControlName = "web"
+                        type="checkbox"
+                        [(ngModel)] = "budget.web"
+                        name = "web"
+                        class="form-check-input"
+                        value="false"
+                        id="webCheck"
+                        (change)="this.updatePrice()"
+                        />
+                        <label class="form-check-label" for="webCheck">
+                            Web Site (500€)
+                        </label>
+                    
+                    </div>
+                    <div *ngIf="this.budget.web && this.budget.web.enabled !== false">
+                        <app-panel></app-panel>
+                    </div>
+                    
+                    <div class="form-check pt-2">
+                        <input consultoriaCheckbox 
+                        formControlName = "consultoria"
+                        type="checkbox"
+                        [(ngModel)] = "budget.consultoria"
+                        name = "consultoria"
+                        class="form-check-input"
+                        value="false"
+                        id="consultCheck"
+                        (change)="this.updatePrice()"
+                        />
+                        <label class="form-check-label" for="consultCheck">
+                            SEO Consultancy (300€)
+                        </label>
+                    </div>
+                    <div class="form-check pt-2">
+                        <input addsCheckbox 
+                        formControlName = "adds"
+                        type="checkbox"
+                        [(ngModel)] = "budget.adds"
+                        name = "adds"
+                        class="form-check-input"
+                        value="false"
+                        id="addsCheck"
+                        (change)="this.updatePrice()"
+                        />
+                        <label class="form-check-label" for="addsCheck">
+                            Google Adds Campaign (200€)
+                        </label>
+                    </div>
+
+                    <div *ngIf="this.budgetForm.hasError('serviceCheck')">
+                        <small class="text-danger errormsg">
+                            A service must be selected. Web, Consultancy and/or Google adds Campaign.
+                        </small>
+                    </div>
+
+                    <div class="total pt-2">
+                        <p>Your budget: {{ this.budget.total }} €</p>
+                    </div>
+                
+                
+                    <button class="btn btn-primary" type="submit">Save Budget</button>
             
-                <p>What would you like to do?</p>
-                
-                <div class="form-check pt-2">
-                    <input webCheckbox 
-                    formControlName = "web"
-                    type="checkbox"
-                    [(ngModel)] = "this.budget.web"
-                    name = "web"
-                    class="form-check-input"
-                    value="false"
-                    id="webCheck"
-                    (change)="this.updatePrice()"
-                    />
-                    <label class="form-check-label" for="webCheck">
-                        Web Site (500€)
-                      </label>
-                
-                </div>
-                <div *ngIf="this.budget.web !== false">
-                    <app-panel></app-panel>
-                </div>
-                
-                <div class="form-check pt-2">
-                    <input consultoriaCheckbox 
-                    formControlName = "consultoria"
-                    type="checkbox"
-                    [(ngModel)] = "this.budget.consultoria"
-                    name = "consultoria"
-                    class="form-check-input"
-                    value="false"
-                    id="consultCheck"
-                    (change)="this.updatePrice()"
-                    />
-                    <label class="form-check-label" for="consultCheck">
-                        SEO Consultancy (300€)
-                    </label>
-                </div>
-                <div class="form-check pt-2">
-                    <input addsCheckbox 
-                    formControlName = "adds"
-                    type="checkbox"
-                    [(ngModel)] = "this.budget.adds"
-                    name = "adds"
-                    class="form-check-input"
-                    value="false"
-                    id="addsCheck"
-                    (change)="this.updatePrice()"
-                    />
-                    <label class="form-check-label" for="addsCheck">
-                        Google Adds Campaign (200€)
-                    </label>
                 </div>
 
-                <div *ngIf="this.budgetForm.hasError('serviceCheck')">
-                    <small class="text-danger errormsg">
-                        A service must be selected. Web, Consultancy and/or Google adds Campaign.
-                    </small>
-                </div>
-
-                <div class="total pt-2">
-                    <p>Your budget: {{ this.budget.total }} €</p>
-                </div>
-            
-            
-                <button class="btn btn-primary" type="submit">Save Budget</button>
-            
             </form>
 
         </div>
@@ -117,8 +124,9 @@
 
                 </div>
             </div>
-            <div>
 
+            <div class="pt-3">
+                <app-budgetlist></app-budgetlist>
             </div>
         </div>
 
