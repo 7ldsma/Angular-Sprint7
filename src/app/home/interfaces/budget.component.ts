@@ -9,4 +9,5 @@ export interface Budget {
     consultoria?: boolean;
     adds?: boolean;
     total?: number;
+    fecha: Date;
 }

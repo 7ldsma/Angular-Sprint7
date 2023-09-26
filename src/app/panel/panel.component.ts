@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BudgetlistService } from '../services/budgetlist.service';
+import { SharedService } from '../services/shared.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class PanelComponent {
 
 
 
-  constructor ( public budgetlistService : BudgetlistService, public ngbModal: NgbModal){
+  constructor ( private budgetlistService : BudgetlistService, public ngbModal: NgbModal, private sharedService: SharedService){
 
     this.pagesCtrl.valueChanges.
     pipe(
@@ -35,6 +36,7 @@ export class PanelComponent {
 
   public pages: number = 1;
   public languages: number = 1;
+  public totalBudget: number = 1;
 
 
   modalMessage: string = '';
@@ -57,7 +59,8 @@ export class PanelComponent {
   increasePages (): void {
     this.pages += 1;
     console.log(this.pages)
-    this.budgetlistService.calculateTotal(500, this.pages, this.languages);
+    this.totalBudget = this.budgetlistService.calculateTotal(500, this.pages, this.languages);
+    this.sharedService.updateTotalBudget(this.totalBudget);
     // this.increasePrice(this.pages, this.languages);
 
   }
@@ -65,7 +68,8 @@ export class PanelComponent {
   decreasePages (): void {
     if (this.pages > 1) {
       this.pages -= 1;
-      this.budgetlistService.calculateTotal(500, this.pages, this.languages);
+      this.totalBudget = this.budgetlistService.calculateTotal(500, this.pages, this.languages);
+      this.sharedService.updateTotalBudget(this.totalBudget);
 
       // this.decreasePrice(this.pages, this.languages);
 
@@ -74,7 +78,8 @@ export class PanelComponent {
 
   increaseLanguages (): void {
     this.languages += 1;
-    this.budgetlistService.calculateTotal(500 , this.pages, this.languages);
+    this.totalBudget = this.budgetlistService.calculateTotal(500 , this.pages, this.languages);
+    this.sharedService.updateTotalBudget(this.totalBudget);
 
     // this.increasePrice(this.pages, this.languages);
 
@@ -83,7 +88,9 @@ export class PanelComponent {
   decreaseLanguages (): void {
     if (this.languages > 0) {
       this.languages -= 1;
-      this.budgetlistService.calculateTotal(500, this.pages, this.languages);
+      this.totalBudget = this.budgetlistService.calculateTotal(500, this.pages, this.languages);
+      this.sharedService.updateTotalBudget(this.totalBudget);
+
         // this.decreasePrice(this.pages, this.languages);
     }
   }

@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { Budget } from './interfaces/budget.component';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { BudgetlistService } from '../services/budgetlist.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedService } from '../services/shared.service';
 
 @Component({
   selector: 'app-home',
@@ -11,14 +12,20 @@ import { ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+    totalBudget: number = 0;
 
-  constructor ( private budgetlistService: BudgetlistService, private FormBuilder: FormBuilder){
+  constructor ( private budgetlistService: BudgetlistService, private FormBuilder: FormBuilder, private sharedService: SharedService){
 
     this.buildForm();
 
-  }
+    this.sharedService.totalBudget$.subscribe(total => {
+    this.totalBudget = total;
 
-  public budget : Budget = {
+  });
+ }
+
+
+  public budget: Budget = {
     name: '',
     client: '',
     web: {
@@ -29,9 +36,8 @@ export class HomeComponent {
     consultoria: false,
     adds: false,
     total: 0,
+    fecha: new Date,
   };
-
-
 
 
     
@@ -56,9 +62,8 @@ save(event: Event) {
     event.preventDefault();
     if(this.budgetForm.valid) {
         const value = this.budgetForm.value as Budget;
-        value.total = this.budget.total;
+        value.total = this.budgetlistService.getTotal();
         this.budgetlistService.addBudget(value);
-        
     } else {
         this.budgetForm.markAllAsTouched();
     }
@@ -105,21 +110,21 @@ serviceCheck (control: AbstractControl) {
 
     if(this.budget.web) {
         totalWebBudget = this.budgetlistService.calculateTotal(500, 1, 1);
-        this.budget.total = totalWebBudget;
+        this.totalBudget = totalWebBudget;
         } else {
-        this.budget.total = 0;
+        this.totalBudget = 0;
     }        
     
     if (this.budget.consultoria) {
-        this.budget.total += 300 ; 
+        this.totalBudget += 300 ; 
     } else {
-        this.budget.total += 0;
+        this.totalBudget += 0;
     }
 
     if (this.budget.adds) {
-        this.budget.total += 200;
+        this.totalBudget += 200;
     } else {
-        this.budget.total += 0;        
+        this.totalBudget += 0;        
     }
 
 }

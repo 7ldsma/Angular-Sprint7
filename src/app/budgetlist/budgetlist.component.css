@@ -1,0 +1,8 @@
+.services-cell span {
+    background: transparent !important;
+}
+
+.table th,
+.table td {
+    background-color: white;
+}

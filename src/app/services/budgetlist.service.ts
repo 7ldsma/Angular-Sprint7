@@ -22,12 +22,10 @@ export class BudgetlistService {
         return this.budgetList;
       }
 
-    getTotal():number {
-        return this.total;
-    }
+
 
     
-    calculateTotal (service:number, pages:number, languages:number) {
+    calculateTotal(service:number, pages:number, languages:number) {
         
         if(pages > 2 && languages === 0){
             this.total = service + (pages * 10);
@@ -36,9 +34,14 @@ export class BudgetlistService {
 
         }
         
-        console.log(this.total);    
+        console.log(this.total, "hooolllaa");    
         return this.total;
 
+    }
+    
+
+    getTotal():number {
+        return this.total;
     }
    
 }
