@@ -90,14 +90,14 @@
                         </label>
                     </div>
 
-                    <div *ngIf="this.budgetForm.hasError('serviceCheck')">
+                    <div *ngIf="this.budgetForm.hasError('noChecked')">
                         <small class="text-danger errormsg">
-                            A service must be selected. Web, Consultancy and/or Google adds Campaign.
+                            A service must be selected.
                         </small>
                     </div>
 
                     <div class="total pt-2">
-                        <p>The budget total is: {{ totalBudget }} €</p>
+                        <p>The budget total is: {{ this.budget.total }} €</p>
                     </div>
                 
                 

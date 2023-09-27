@@ -7,7 +7,7 @@ export class BudgetlistService {
 
     constructor(  ) { }
 
-    private total:number = 0;
+    public total:number = 0;
     private budgetList: Budget[] = [];
 
 
@@ -34,13 +34,12 @@ export class BudgetlistService {
 
         }
         
-        console.log(this.total, "hooolllaa");    
         return this.total;
 
     }
     
 
-    getTotal():number {
+        getTotal():number {
         return this.total;
     }
    

@@ -14,7 +14,8 @@ import { SharedService } from '../services/shared.service';
 export class HomeComponent {
     totalBudget: number = 0;
 
-  constructor ( private budgetlistService: BudgetlistService, private FormBuilder: FormBuilder, private sharedService: SharedService){
+
+  constructor ( public budgetlistService: BudgetlistService, private FormBuilder: FormBuilder, private sharedService: SharedService){
 
     this.buildForm();
 
@@ -24,30 +25,36 @@ export class HomeComponent {
   });
  }
 
-
-  public budget: Budget = {
-    name: '',
-    client: '',
-    web: {
-        enabled: false,
-        pages: 0,
-        languages: 0,
-    },
+ 
+ public budget: Budget = {
+     name: '',
+     client: '',
+     web: {
+         enabled: false,
+         pages: 0,
+         languages: 0,
+        },
     consultoria: false,
     adds: false,
     total: 0,
     fecha: new Date,
-  };
+};
 
 
+public budgetList: Budget[] = [];
+public filteredBudgetList: Budget[] = [];
+
+
+public serviceSelected: boolean = false;
     
+
 budgetForm = this.FormBuilder.group({
     name: ['', Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z]{3,}$/)])],
     client: ['', Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z]{3,}$/)])],
-    web: ['', []],
-    consultoria: ['', []],
-    adds: ['', []]
-}, {Validator: this.serviceCheck}); 
+    web: [false],
+    consultoria: [false],
+    adds: [false]
+}, {validators: this.serviceCheck});
 
 
 private buildForm(){
@@ -55,7 +62,19 @@ private buildForm(){
 
 } 
 
-public budgetList: Budget[] = [];
+
+serviceCheck (control: AbstractControl) {
+
+    const webControl = control.get('web')?.value;
+    const consultoriaControl = control.get('consultoria')?.value;
+    const addsControl = control.get('adds')?.value;
+
+    if(webControl === false && consultoriaControl === false && addsControl === false){
+        return { noChecked: true };
+    }
+        return null;
+    }
+
 
 
 save(event: Event) {
@@ -67,11 +86,10 @@ save(event: Event) {
     } else {
         this.budgetForm.markAllAsTouched();
     }
-    this.budget.total = 0;
     this.budgetForm.reset();
+    this.budget.total = 0;
 
 }
-
 
 
 get nameField() {
@@ -84,48 +102,23 @@ get clientField() {
 
 
 
-serviceCheck (control: AbstractControl) {
-    const webControl = control.get('web')?.value;
-    const consultoriaControl = control.get('consultoria')?.value;
-    const addsControl = control.get('adds')?.value;
-
-    // if(webControl && consultoriaControl && addsControl) {
-    //     const web = webControl.value;
-    //     const consultoria = consultoriaControl.value;
-    //     const adds = addsControl.value;
-
-        console.log('HOLA HOLA ' + webControl);
-        if ( webControl || consultoriaControl || addsControl ) {
-            return null;
-        }
-        return true;
-    }
-
-
-
-
   updatePrice(){
 
     let totalWebBudget:number = 0;
 
     if(this.budget.web) {
-        totalWebBudget = this.budgetlistService.calculateTotal(500, 1, 1);
-        this.totalBudget = totalWebBudget;
+        totalWebBudget = this.budgetlistService.calculateTotal(500,1,1);
         } else {
-        this.totalBudget = 0;
+        totalWebBudget = 0;
     }        
-    
-    if (this.budget.consultoria) {
-        this.totalBudget += 300 ; 
-    } else {
-        this.totalBudget += 0;
-    }
 
-    if (this.budget.adds) {
-        this.totalBudget += 200;
-    } else {
-        this.totalBudget += 0;        
-    }
+    let consultingB = this.budget.consultoria ? 300 : 0;
+    let addsB = this.budget.adds ? 200 : 0;
+
+    this.totalBudget = (totalWebBudget + consultingB + addsB);
+
+    this.budget.total = this.totalBudget;
+    
 
 }
 
