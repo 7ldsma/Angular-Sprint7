@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { Budget } from './interfaces/budget.component';
+import { Budget, Webservice } from './interfaces/budget.component';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { BudgetlistService } from '../services/budgetlist.service';
@@ -27,13 +27,9 @@ export class HomeComponent {
 
  
  public budget: Budget = {
-     name: '',
-     client: '',
-     web: {
-         enabled: false,
-         pages: 0,
-         languages: 0,
-        },
+    name: '',
+    client: '',
+    web: false,
     consultoria: false,
     adds: false,
     total: 0,
@@ -101,26 +97,10 @@ get clientField() {
 }
 
 
-
-  updatePrice(){
-
-    let totalWebBudget:number = 0;
-
-    if(this.budget.web) {
-        totalWebBudget = this.budgetlistService.calculateTotal(500,1,1);
-        } else {
-        totalWebBudget = 0;
-    }        
-
-    let consultingB = this.budget.consultoria ? 300 : 0;
-    let addsB = this.budget.adds ? 200 : 0;
-
-    this.totalBudget = (totalWebBudget + consultingB + addsB);
-
-    this.budget.total = this.totalBudget;
-    
-
+updatingBud(){
+    this.budgetlistService.updatePrice(this.budget)
 }
+
 
 
 

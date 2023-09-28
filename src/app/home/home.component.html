@@ -48,14 +48,14 @@
                         class="form-check-input"
                         value="false"
                         id="webCheck"
-                        (change)="this.updatePrice()"
+                        (change)="this.updatingBud()"
                         />
                         <label class="form-check-label" for="webCheck">
                             Web Site (500€)
                         </label>
                     
                     </div>
-                    <div *ngIf="this.budget.web && this.budget.web.enabled !== false">
+                    <div *ngIf="this.budget.web && this.budget.web === true">
                         <app-panel></app-panel>
                     </div>
                     
@@ -68,7 +68,7 @@
                         class="form-check-input"
                         value="false"
                         id="consultCheck"
-                        (change)="this.updatePrice()"
+                        (change)="this.updatingBud()"
                         />
                         <label class="form-check-label" for="consultCheck">
                             SEO Consultancy (300€)
@@ -83,7 +83,8 @@
                         class="form-check-input"
                         value="false"
                         id="addsCheck"
-                        (change)="this.updatePrice()"
+                        (change)="this.updatingBud()"
+                        
                         />
                         <label class="form-check-label" for="addsCheck">
                             Google Adds Campaign (200€)
@@ -97,7 +98,7 @@
                     </div>
 
                     <div class="total pt-2">
-                        <p>The budget total is: {{ this.budget.total }} €</p>
+                        <p>The budget total is: {{ this.budgetlistService.total }} €</p>
                     </div>
                 
                 

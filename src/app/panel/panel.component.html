@@ -7,7 +7,7 @@
                 <div class="d-flex">
                     <button type="button" class="btn btn-primary" (click)="this.decreasePages()">-</button>
                     
-                    <input class="form-control border border-0" style="text-align:center; width: 80px;" type="number" value="1" id="pages" [(ngModel)]="this.pages" [formControl]="pagesCtrl">
+                    <input class="form-control border border-0" style="text-align:center; width: 80px;" type="number" value="1" id="pages" [(ngModel)]="this.web.pages" [formControl]="pagesCtrl">
                     
                     <button type="button" class="btn btn-primary" (click)="this.increasePages()">+</button>
 
@@ -34,7 +34,7 @@
                 
                     <button type="button" class="btn btn-primary" (click)="this.decreaseLanguages()">-</button>
             
-                    <input class="form-control border border-0" style="text-align:center; width: 80px;" type="number" value="1" id="languages" [(ngModel)]="this.languages" [formControl]="languagesCtrl">
+                    <input class="form-control border border-0" style="text-align:center; width: 80px;" type="number" value="1" id="languages" [(ngModel)]="this.web.languages" [formControl]="languagesCtrl">
                     
                     <button type="button" class="btn btn-primary" (click)="this.increaseLanguages()">+</button>
                     

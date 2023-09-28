@@ -4,6 +4,7 @@ import { debounceTime } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BudgetlistService } from '../services/budgetlist.service';
 import { SharedService } from '../services/shared.service';
+import { Webservice } from '../home/interfaces/budget.component';
 
 
 @Component({
@@ -34,9 +35,14 @@ export class PanelComponent {
 
   contenido: any;
 
-  public pages: number = 1;
-  public languages: number = 1;
-  public totalBudget: number = 1;
+  public web: Webservice = {
+    pages: 1,
+    languages: 1,
+  }
+  
+  // public pages: number = 1;
+  // public languages: number = 1;
+  public totalWebBudget: number = 1;
 
 
   modalMessage: string = '';
@@ -57,19 +63,19 @@ export class PanelComponent {
 
 
   increasePages (): void {
-    this.pages += 1;
-    console.log(this.pages)
-    this.totalBudget = this.budgetlistService.calculateTotal(500, this.pages, this.languages);
-    this.sharedService.updateTotalBudget(this.totalBudget);
+    this.web.pages += 1;
+    console.log(this.web.pages)
+    this.totalWebBudget = this.budgetlistService.calculateTotal(500, this.web.pages, this.web.languages);
+    this.sharedService.updateTotalBudget(this.totalWebBudget);
     // this.increasePrice(this.pages, this.languages);
 
   }
 
   decreasePages (): void {
-    if (this.pages > 1) {
-      this.pages -= 1;
-      this.totalBudget = this.budgetlistService.calculateTotal(500, this.pages, this.languages);
-      this.sharedService.updateTotalBudget(this.totalBudget);
+    if (this.web.pages > 1) {
+      this.web.pages -= 1;
+      this.totalWebBudget = this.budgetlistService.calculateTotal(500, this.web.pages, this.web.languages);
+      this.sharedService.updateTotalBudget(this.totalWebBudget);
 
       // this.decreasePrice(this.pages, this.languages);
 
@@ -77,19 +83,19 @@ export class PanelComponent {
   }
 
   increaseLanguages (): void {
-    this.languages += 1;
-    this.totalBudget = this.budgetlistService.calculateTotal(500 , this.pages, this.languages);
-    this.sharedService.updateTotalBudget(this.totalBudget);
+    this.web.languages += 1;
+    this.totalWebBudget = this.budgetlistService.calculateTotal(500 , this.web.pages, this.web.languages);
+    this.sharedService.updateTotalBudget(this.totalWebBudget);
 
     // this.increasePrice(this.pages, this.languages);
 
   }
 
   decreaseLanguages (): void {
-    if (this.languages > 0) {
-      this.languages -= 1;
-      this.totalBudget = this.budgetlistService.calculateTotal(500, this.pages, this.languages);
-      this.sharedService.updateTotalBudget(this.totalBudget);
+    if (this.web.languages > 0) {
+      this.web.languages -= 1;
+      this.totalWebBudget = this.budgetlistService.calculateTotal(500, this.web.pages, this.web.languages);
+      this.sharedService.updateTotalBudget(this.totalWebBudget);
 
         // this.decreasePrice(this.pages, this.languages);
     }
