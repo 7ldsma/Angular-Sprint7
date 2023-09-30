@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col col-md-5 col-xl-4 bg-secondary-subtle p-4">
             
-            <form [formGroup]="budgetForm" needs-validation novalidate (ngSubmit)="this.save($event)">
+            <form [formGroup]="budgetForm" needs-validation novalidate (submit)="save($event)">
             
                 <div>
                     Client: <br/>
@@ -29,11 +29,10 @@
                         A budget name is required.
                     </small>
                     <small class="text-danger errormsg" *ngIf="this.nameField?.hasError('pattern')">
-                        A Client name should be of at least 3 characters.
+                        A Budget name should be of at least 3 characters.
                     </small> 
                 </div>
             
-
 
                 <div class="pt-3">
 
@@ -49,6 +48,7 @@
                         value="false"
                         id="webCheck"
                         (change)="this.updatingBud()"
+
                         />
                         <label class="form-check-label" for="webCheck">
                             Web Site (500€)
@@ -91,7 +91,7 @@
                         </label>
                     </div>
 
-                    <div *ngIf="this.budgetForm.hasError('noChecked')">
+                    <div *ngIf="this.budgetForm.hasError('noCheck') && this.budgetForm.touched">
                         <small class="text-danger errormsg">
                             A service must be selected.
                         </small>

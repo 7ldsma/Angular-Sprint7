@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
-import { Budget, Webservice } from './interfaces/budget.component';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { Budget} from './interfaces/budget.component';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { BudgetlistService } from '../services/budgetlist.service';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,7 +15,9 @@ export class HomeComponent {
     totalBudget: number = 0;
 
 
-  constructor ( public budgetlistService: BudgetlistService, private FormBuilder: FormBuilder, private sharedService: SharedService){
+  constructor ( public budgetlistService: BudgetlistService, 
+    private FormBuilder: FormBuilder, 
+    private sharedService: SharedService, ){
 
     this.buildForm();
 
@@ -42,14 +44,19 @@ public filteredBudgetList: Budget[] = [];
 
 
 public serviceSelected: boolean = false;
-    
+
+ngOnInIt(){
+    this.budgetlistService.ngOnInIt(this.budget)
+}
 
 budgetForm = this.FormBuilder.group({
+
     name: ['', Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z]{3,}$/)])],
     client: ['', Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z]{3,}$/)])],
-    web: [false],
-    consultoria: [false],
-    adds: [false]
+    web: [],
+    consultoria: [],
+    adds: [],
+
 }, {validators: this.serviceCheck});
 
 
@@ -59,17 +66,20 @@ private buildForm(){
 } 
 
 
-serviceCheck (control: AbstractControl) {
+serviceCheck(control: AbstractControl) {
 
     const webControl = control.get('web')?.value;
     const consultoriaControl = control.get('consultoria')?.value;
     const addsControl = control.get('adds')?.value;
 
-    if(webControl === false && consultoriaControl === false && addsControl === false){
-        return { noChecked: true };
-    }
+    if(!webControl && !consultoriaControl && !addsControl ){
+        return { noCheck: true };
+        console.log("esto no existe")
+    } else {
         return null;
+
     }
+   }
 
 
 
@@ -79,11 +89,14 @@ save(event: Event) {
         const value = this.budgetForm.value as Budget;
         value.total = this.budgetlistService.getTotal();
         this.budgetlistService.addBudget(value);
+        this.budgetForm.reset();
+        this.budgetlistService.settotalbudget();
     } else {
+        // alert('you must fill the form')
         this.budgetForm.markAllAsTouched();
     }
-    this.budgetForm.reset();
     this.budget.total = 0;
+
 
 }
 
@@ -100,6 +113,8 @@ get clientField() {
 updatingBud(){
     this.budgetlistService.updatePrice(this.budget)
 }
+
+
 
 
 

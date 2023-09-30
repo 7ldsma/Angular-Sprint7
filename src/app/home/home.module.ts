@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { PanelComponent } from '../panel/panel.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BudgetlistComponent } from '../budgetlist/budgetlist.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -21,6 +22,7 @@ import { BudgetlistComponent } from '../budgetlist/budgetlist.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule
   ],
   providers:[],
 })

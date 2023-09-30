@@ -39,9 +39,7 @@ export class PanelComponent {
     pages: 1,
     languages: 1,
   }
-  
-  // public pages: number = 1;
-  // public languages: number = 1;
+
   public totalWebBudget: number = 1;
 
 
@@ -67,7 +65,6 @@ export class PanelComponent {
     console.log(this.web.pages)
     this.totalWebBudget = this.budgetlistService.calculateTotal(500, this.web.pages, this.web.languages);
     this.sharedService.updateTotalBudget(this.totalWebBudget);
-    // this.increasePrice(this.pages, this.languages);
 
   }
 
@@ -77,7 +74,6 @@ export class PanelComponent {
       this.totalWebBudget = this.budgetlistService.calculateTotal(500, this.web.pages, this.web.languages);
       this.sharedService.updateTotalBudget(this.totalWebBudget);
 
-      // this.decreasePrice(this.pages, this.languages);
 
     }
   }
@@ -87,7 +83,6 @@ export class PanelComponent {
     this.totalWebBudget = this.budgetlistService.calculateTotal(500 , this.web.pages, this.web.languages);
     this.sharedService.updateTotalBudget(this.totalWebBudget);
 
-    // this.increasePrice(this.pages, this.languages);
 
   }
 
@@ -97,35 +92,10 @@ export class PanelComponent {
       this.totalWebBudget = this.budgetlistService.calculateTotal(500, this.web.pages, this.web.languages);
       this.sharedService.updateTotalBudget(this.totalWebBudget);
 
-        // this.decreasePrice(this.pages, this.languages);
     }
   }
 
     
-// increasePrice(pages: number, languages: number){
-//     if(this.homeService.budget.total){
-//             this.homeService.budget.total += (pages * languages * 30);      
-//     }
-//     return this.homeService.budget.total;
-// }
-
-
-// decreasePrice(pages: number, languages: number){
-//     if(this.homeService.budget.total){
-//         if (languages > 0 ){
-//             this.homeService.budget.total -= pages * languages * 30;
-//         } else {
-//             this.homeService.budget.total -= pages * 30;
-            
-//         }            
-
-//     }
-//     return this.homeService.budget.total;
-
-//     console.log(this.pages, this.languages)
-// }
-
-
 
 
 }

@@ -27,6 +27,8 @@
               <th scope="col">Budget Name</th>
               <th scope="col" class="col-5">Services</th>
               <th scope="col">Total</th>
+              <th scope="col">Fecha</th>
+
             </tr>
           </thead>
           <tbody>
@@ -34,10 +36,11 @@
                       <td>{{budget.client}}</td>
                       <td>{{budget.name}}</td>
                       <td class="services-cell">
-                        <span *ngIf="budget.web">Web, </span>
-                        <span *ngIf="budget.consultoria">Consulting, </span>
+                        <span *ngIf="budget.web">Web</span>
+                        <span *ngIf="budget.consultoria">Consulting</span>
                         <span *ngIf="budget.adds">Adds</span>
                       </td>
+                      <td>{{ budget.fecha }}</td>
   
                       <td>{{ budget.total }}</td> 
           </tbody>
@@ -66,7 +69,6 @@
                       <span *ngIf="budget.consultoria">Consulting, </span>
                       <span *ngIf="budget.adds">Adds</span>
                     </td>
-
                     <td>{{ budget.total }}</td> 
         </tbody>
               

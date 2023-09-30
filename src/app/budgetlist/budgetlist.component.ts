@@ -28,6 +28,7 @@ export class BudgetlistComponent {
   }
   
 
+
   sortByABC() {
     this.lists.sort((a, b) => {
       if(a && b && a.client && b.client) {
@@ -40,7 +41,6 @@ export class BudgetlistComponent {
   sortByDate() {
     this.lists.sort((a, b) => {
       const dateA = new Date(a.fecha).getTime();
-      console.log("hola")
       const dateB = new Date(b.fecha).getTime();
       return dateA > dateB ? 1 : dateA < dateB ? -1 : 0;
     })

@@ -1,31 +1,59 @@
 import { Injectable } from '@angular/core';
 import { Budget, Webservice } from '../home/interfaces/budget.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Injectable({providedIn: 'root'})
 export class BudgetlistService {
 
-    constructor(  ) { }
+    constructor( private activatedRoute: ActivatedRoute,
+        private router: Router ) { }
 
     public total:number = 0;
     private budgetList: Budget[] = [];
 
-    // public budget: Budget = {
-    //     name: '',
-    //     client: '',
-    //     web: false,
-    //     consultoria: false,
-    //     adds: false,
-    //     total: 0,
-    //     fecha: new Date,
-    // };
 
-    public webBudget: Webservice = {
-        pages : 1,
-        languages: 1,
+    webService: boolean = false;
+    consultingService: boolean = false;
+    addsService: boolean = false;
+    pages: number = 1;
+    languages: number = 1;
+
+
+    ngOnInIt(budget: Budget) {
+
+        this.activatedRoute.queryParamMap.subscribe((param) => {
+            budget.web = Boolean(param.get('WebService'))
+            budget.consultoria = Boolean(param.get('ConsultingService'))
+            budget.adds = Boolean(param.get('AddsService'))
+        })
+    }   
+    
+
+    appendQueryParam(budget: Budget){
+        // const queryParams = {['key']: boolean} = {};
+
+        // if(budget.web){
+        //     queryParams['WebService'] = true;
+        // }
+
+        // if(budget.consultoria) {
+        //     queryParams['consultinService'] = true;
+        // }
+
+        // if(budget.adds) {
+        //     queryParams['addsService'] = true;
+        // }
+
+        this.router.navigate(['/home'], {queryParams: {WebService: false, consultingService: false, addsService: false}});
+
     }
 
 
+
+    settotalbudget():void{
+        this.total =0 ;
+    }
 
     addBudget(data: Budget) {
         this.budgetList.push(data);
@@ -44,7 +72,6 @@ export class BudgetlistService {
     
         if(budget.web) {
             totalWebBudget = this.calculateTotal(500, 1,1);
-            console.log("TOLSS")
             } else {
             totalWebBudget = 0;
         }        
@@ -56,6 +83,7 @@ export class BudgetlistService {
     
         this.total = totalBudget;
         
+        this.appendQueryParam(budget)
     
     }
 
@@ -75,7 +103,7 @@ export class BudgetlistService {
     }
   
 
-        getTotal():number {
+    getTotal():number {
         return this.total;
     }
    
