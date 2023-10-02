@@ -31,10 +31,10 @@ export class BudgetlistService {
     
 
     appendQueryParam(budget: Budget){
-        // const queryParams = {['key']: boolean} = {};
+        const queryParams = {} = {};
 
         // if(budget.web){
-        //     queryParams['WebService'] = true;
+        //     queryParams: {WebService:boolean = true};
         // }
 
         // if(budget.consultoria) {
@@ -45,7 +45,7 @@ export class BudgetlistService {
         //     queryParams['addsService'] = true;
         // }
 
-        this.router.navigate(['/home'], {queryParams: {WebService: false, consultingService: false, addsService: false}});
+        this.router.navigate(['/home'], {queryParams: {WebService : false, ConsultingService: false, AddsService: false}, queryParamsHandling: 'merge'});
 
     }
 

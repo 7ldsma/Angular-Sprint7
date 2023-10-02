@@ -5,6 +5,7 @@ import { debounceTime } from 'rxjs/operators';
 import { BudgetlistService } from '../services/budgetlist.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedService } from '../services/shared.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -17,12 +18,15 @@ export class HomeComponent {
 
   constructor ( public budgetlistService: BudgetlistService, 
     private FormBuilder: FormBuilder, 
-    private sharedService: SharedService, ){
+    private sharedService: SharedService, 
+    private route: ActivatedRoute){
 
     this.buildForm();
 
     this.sharedService.totalBudget$.subscribe(total => {
     this.totalBudget = total;
+
+
 
   });
  }
@@ -44,6 +48,7 @@ public filteredBudgetList: Budget[] = [];
 
 
 public serviceSelected: boolean = false;
+
 
 ngOnInIt(){
     this.budgetlistService.ngOnInIt(this.budget)
